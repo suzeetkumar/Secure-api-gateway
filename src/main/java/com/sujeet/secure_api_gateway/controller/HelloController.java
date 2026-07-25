@@ -29,4 +29,8 @@ public class HelloController {
         user.setPassword(passwordEncoder.encode("suj1234"));
         return userRespository.save(user);
     }
+    @GetMapping("/health")
+    public String health() {
+        return "OK";
+    }
 }
