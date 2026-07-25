@@ -26,7 +26,10 @@ public class RateLimitingFilter extends jakarta.servlet.http.HttpFilter {
     protected void doFilter(HttpServletRequest request,
                             HttpServletResponse response,
                             FilterChain chain) throws ServletException, IOException {
-
+        if (request.getRequestURI().equals("/health")) {
+            chain.doFilter(request, response);
+            return;
+        }
         String clientKey = resolveClientKey(request);
         long windowMillis = TimeUnit.SECONDS.toMillis(windowSeconds);
         long now = System.currentTimeMillis();
